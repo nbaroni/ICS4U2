@@ -1,0 +1,80 @@
+body{
+    background: aliceblue;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font: normal 16px Arial;
+    line-height: 20px;
+}
+
+a{
+    text-decoration: none;
+    color: coral;
+}
+
+a:hover{
+    color: crimson;
+}
+
+.container{
+    width: auto;
+    margin: 200px 10px 20px 5px;
+}
+
+.button{
+    border: 200px;
+}
+
+.box1{
+    background-color: black;
+    color: whitesmoke;
+    border-left: 5px rosybrown solid;
+}
+
+.box2{
+    font-family:Tahoma;
+    border: 5px greenyellow solid;
+    border-width:3px;
+    border-top-style: dashed;
+    padding:20px;
+    font-style: italic;
+    text-decoration:underline;
+}
+
+.categories{
+    border:1px #ccc solid;
+    padding:10px;
+    border-radius:15px;
+}
+
+.categories h1{
+    text-align:center;
+}
+
+.categories ul{
+    list-style-type: square;
+}
+
+.categories li{
+    padding-bottom: 6px;
+    border-bottom:dotted 1px goldenrod;
+    list-style-image: url(/ICS4U/Week1/img/7f5bec7d27f541c188a6399cd9370dea.PNG);
+}
+
+.my-form{
+    padding:20px;
+}
+
+.myform .form-group{
+    padding-bottom:15px;
+}
+
+.myform label{
+    display:block;
+}
+
+.myform input[type="text"], .myform textarea{
+    padding:8px;
+    width:100%;
+}
+
