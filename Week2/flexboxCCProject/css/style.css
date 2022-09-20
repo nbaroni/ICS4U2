@@ -1,0 +1,147 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/**general stuff */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: black;
+    background: rgb(255, 172, 145);
+}
+
+/**the real sider man image on the top B) */
+.logo img {
+    max-height: 60px; /**without this it would be MASSIVE just like real sider man */
+    padding-top: 10px; /**my attempt at centering it */
+}
+
+/**general stuff for my boy, sider man (the drawing) */
+img {
+    max-width: flex;
+}
+
+/**general margin formatting for both the main text and the boxes */
+h1,
+h2 {
+    margin-bottom: 15px;
+}
+
+/**gets rid of dots between the list at the top on the bar at the top */
+ul {
+    list-style-type: none;
+}
+
+/**general formatting horizontally (makes it so everything is not always on the edge of the screen)*/
+.container {
+    max-width: 1100px;
+    margin: 0 auto; /**centers it */
+    padding: 0 30px;
+}
+
+
+/**top bar formatting */
+.navbar {
+    background: rgb(217, 54, 33);
+    color: white;
+    height: 60px; /**makes it shorter and cooler B) */
+}
+
+/**this formats the text that shows up then the image does not but sider man always shows up */
+.navbar .logo {
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+/**gets rid of the ugly blue underline on links. Sider man is not ugly, nor blue, nor underlined */
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+/**makes it so when you hover over one of these things on the top bar then it becomes light red */
+.navbar a:hover{
+    color: rgb(206, 160, 154);
+}
+
+/**lines up the list horizontally */
+.navbar ul {
+    display: flex;
+}
+
+/**spaces out horizontal */
+.navbar ul li {
+    margin-left: 20px;
+}
+
+/**puts the list on to the top bar */
+.navbar .container {
+    display: flex; /**puts it up there */
+    justify-content: space-between; /**puts it on the right */
+    align-items: center; /**(up and down) */
+    height: 100%; /**helps to center it */
+}
+
+/**makes text on top bar bold(er) wow I never could have guessed */
+.nav {
+    font-weight: bolder;
+}
+
+.header {
+    background-color: #FF5349;
+    color: white;
+    min-height: 400px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.header img {
+    max-width: 400px;
+}
+
+
+/**deals with resizing */
+@media (min-width: 800px){
+    .header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .boxes .container {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+
+/**deals with resizing */
+@media (max-width: 800px){
+    .box- {
+        min-width: flex;    
+    }
+    .boxes {
+        display: flex;
+        flex-direction: column;
+        min-width: none;
+    }
+}
+
+/**box formatting */
+.box- {
+    flex: 1;
+    background: rgb(251, 157, 126);
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    margin: 20px 10px;
+    box-shadow: 0 3px 5px rgb(126, 0, 0);
+    padding: 15px 20px;
+}
