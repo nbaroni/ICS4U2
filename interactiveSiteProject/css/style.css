@@ -145,3 +145,23 @@ ul {
     box-shadow: 0 3px 5px rgb(126, 0, 0);
     padding: 15px 20px;
 }
+
+
+/**formats the text on the pages under construction that are totally not all the same */
+.constuction {
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+}
+
+
+/**does the same thing that it does above. gets rid of all the ugly blue underline */
+.constuction a {
+    color: white;
+    text-decoration: none;
+}
+
+/**makes it change colour when hovered over  */
+.constuction a:hover{
+    color: rgb(255, 234, 227);
+}
