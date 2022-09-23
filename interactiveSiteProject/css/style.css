@@ -25,6 +25,10 @@ img {
     max-width: flex;
 }
 
+.header img {
+    border-radius: 15px;
+}
+
 /**general margin formatting for both the main text and the boxes */
 h1,
 h2 {
@@ -162,6 +166,40 @@ a:hover{
     }
 }
 
+
+/**the site kinda breaks under 450 px so in case he tests like up to 150 it will work ok I guess */
+@media (max-width: 430px) {
+    
+    body { 
+        background-color: #FF5349; 
+    }
+
+    .navbar {
+        background-color: #FF5349;
+    }
+
+    /**they take up too much space  */
+    .logo img {
+        height: 0px;
+    }
+
+    .header img {
+        width: flex;
+    }
+
+    .footer img {
+        height: 0px;
+    }
+}
+
+/**if you go too small, then no more Sider man art for you >:) */
+@media (max-width: 150px) {
+    
+    img {
+        height: 0px;
+    }
+    
+}
 
 /**deals with resizing before it gets small I dont need it :)
 @media (max-width: 800px){
