@@ -25,12 +25,7 @@ img {
     max-width: flex;
 }
 
-.header img {
-    border-radius: 15px;
-}
-
-/**general margin formatting for both the main text and the boxes */
-h1,
+/**general margin formatting for the boxes */
 h2 {
     margin-bottom: 15px;
 }
@@ -105,6 +100,10 @@ a:hover{
     min-height: 400px;
 }
 
+/**makes the little indent at the start of the paragraph */
+.header p {
+    text-indent: 5%;
+}
 
 /**for top header */
 .header h1 {
@@ -116,6 +115,7 @@ a:hover{
 /**makes it so the image on the top bar isnt as massive as something big that I cant think of */
 .header img {
     max-width: 400px;
+    border-radius: 15px;
 }
 
 /**just for the header on the left most box */
@@ -138,12 +138,49 @@ a:hover{
     min-width: none;
 }
 
+.idk h1 {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+
 /**deals with resizing */
 @media (min-width: 800px){
     .header .container {
-        display: flex;
+        /**display: flex; */
+
+        /**top bar. Makes it so bottom text is bigger and top text and image stuff */
+        display: grid;
+        grid-template-columns: 9fr 5fr;
+        grid-template-rows: auto auto;
+
+        /**vertically */
         align-items: center;
-        justify-content: space-between;
+        padding: 20px 0px;
+        font-size: 20px;
+    }
+
+    .item:nth-of-type(1) p{
+        text-indent: 0%;
+        padding-top: 7px;
+        font-size: 13px;
+        color: #ffd8d6;
+    }
+
+    /**horizontally (for the image) */
+    .item:nth-of-type(2){
+        justify-content: right;
+        display: flex;
+    }
+
+    /**makes text on bottom span two rows of table! */
+    .item:nth-of-type(3){
+        padding-top: 10px;
+        grid-column: 1/3;
     }
 
     /**makes the first box bigger */
@@ -154,15 +191,19 @@ a:hover{
     /**lets me make the first box bigger */
     .boxes .container {
         display: grid; 
-        
+
 
         /**it looks strange if it is not even vertically */
         grid-template-columns: 1fr 1fr;
 
 
-        /**trial and error because I dont know how to do it otherwise lol please dont take marks off :) */
-        grid-template-rows: 7fr 4fr;
+        /**auto moment */
+        grid-template-rows: auto auto;
+    }
 
+    /**makes it bigger when the scren is bigger */
+    .idk h1{
+        font-size: 50px;
     }
 }
 
@@ -190,6 +231,7 @@ a:hover{
     .footer img {
         height: 0px;
     }
+    
 }
 
 /**if you go too small, then no more Sider man art for you >:) */
@@ -285,4 +327,20 @@ a:hover{
     justify-content: space-between; /**puts it on the right */
     align-items: center; /**(up and down) */
     height: 100%; /**helps to center it */
+}
+
+
+.sub a {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sub a:hover {
+    color: #FF5349;
+}
+
+.form {
+    padding-bottom: 20px;
+
 }
