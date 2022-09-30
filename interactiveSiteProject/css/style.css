@@ -234,6 +234,14 @@ a:hover{
     .footer img {
         height: 0px;
     }
+
+    .con .img img {
+        height: 0px;
+    }
+
+    .con {
+        grid-template-columns: 1fr 100fr;
+    }
     
 }
 
@@ -323,7 +331,13 @@ a:hover{
 
 /**spaces out horizontal */
 .footer ul li {
-    margin-left: 20px;
+    margin-right: 50px;
+    display: flex;
+    align-items: self-end;
+}
+
+.footer ul li a {
+    margin-left: 10px;
 }
 
 /**puts the list on to the top bar */
@@ -363,4 +377,72 @@ a:hover{
         margin: 0 20%;
     }
     
+}
+
+
+.img img {
+    max-height: 500px;
+}
+
+.img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.con .img {
+    padding: 30px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.con {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: #ff8161;
+}
+
+
+.con .fillium {
+    padding: 10% 5%;
+}
+
+.fillium h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 43px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+
+.idk h1 {
+    padding: 0 10%;
+}
+
+.fillium p {
+    text-indent: 5%;
+    font-size: 17px;
+}
+
+.vers img {
+    max-height: 400px;
+}
+
+.vers {
+    margin-left: 2%;
+    padding-bottom: 30px;
+}
+
+.name h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 55px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 500;
+}
+
+.verse {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
