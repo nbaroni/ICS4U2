@@ -380,6 +380,8 @@ a:hover{
 }
 
 
+/**ALl of the stuff past this is like pretty generic and I think I explained enough already */
+
 .img img {
     max-height: 500px;
 }
@@ -425,7 +427,7 @@ a:hover{
 }
 
 .vers img {
-    max-height: 400px;
+    height: 40vh;
 }
 
 .vers {
@@ -442,7 +444,39 @@ a:hover{
 }
 
 .verse {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.verse .vers {
+    display: inline-block;
+    color: white;
+}
+
+.versex {
+    background-color: #ce2b2b;
+    color: white;
+}
+
+.vers .box- {
+    background-color: #a42222;
+    color: white;
+    box-shadow: 0 5px 10px rgb(205, 135, 135);
+}
+
+@media (max-width: 900px) {
+    .vers .box- {
+        display: contents;
+    }
+    .vers {
+        margin-right: 100px;
+    }
+
+    .vers img {
+        width: flex;
+        max-height: 200px;
+    }
+    .name h1 {
+        font-size: 40px;
+    }
 }
