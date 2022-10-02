@@ -11,16 +11,16 @@
 /**general stuff */
 body {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 1.8vh;
     line-height: 1.5;
     color: black;
-    background: rgb(255, 172, 145);
+    background: rgb(255, 188, 165);
 }
 
 /**the real sider man image on the top B) */
 .logo img {
-    max-height: 60px; /**without this it would be MASSIVE just like real sider man */
-    padding-top: 10px; /**my attempt at centering it */
+    max-height: 7vh; /**without this it would be MASSIVE just like real sider man */
+    padding-top: 1vh; /**my attempt at centering it */
 }
 
 /**general stuff for my boy, sider man (the drawing) */
@@ -30,7 +30,7 @@ img {
 
 /**general margin formatting for the boxes */
 h2 {
-    margin-bottom: 15px;
+    margin-bottom: 1.7vh;
 }
 
 /**gets rid of dots between the list at the top on the bar at the top  and footer*/
@@ -41,9 +41,9 @@ ul {
 /**general formatting horizontally (makes it so everything is not always on the edge of the screen)*/
 .container {
     display: grid;
-    max-width: 1100px;
+    max-width: 100%;
     margin: 0 auto; /**centers it */
-    padding: 0 30px;
+    padding: 0 3vh;
 
     grid-template-columns: none;
 }
@@ -53,7 +53,7 @@ ul {
 .navbar {
     background: rgb(217, 54, 33);
     color: white;
-    height: 60px; /**makes it shorter and cooler B) */
+    height: 7vh; /**makes it shorter and cooler B) */
 }
 
 /**this formats the text that shows up then the image does not but sider man always shows up */
@@ -80,7 +80,7 @@ a:hover{
 
 /**spaces out horizontal */
 .navbar ul li {
-    margin-left: 20px;
+    margin-left: 2.25vh;
 }
 
 /**puts the list on to the top bar */
@@ -100,7 +100,7 @@ a:hover{
 .header {
     background-color: #FF5349;
     color: white;
-    min-height: 400px;
+    min-height: 50vh;
 }
 
 /**makes the little indent at the start of the paragraph */
@@ -117,7 +117,7 @@ a:hover{
 
 /**makes it so the image on the top bar isnt as massive as something big that I cant think of */
 .header img {
-    max-width: 400px;
+    max-height: 45vh;
     border-radius: 15px;
 }
 
@@ -129,20 +129,47 @@ a:hover{
 
 /**makes each box stand out */
 .box-:nth-of-type(1) {
-    font-size: 23px;
+    font-size: 2.6vh;
 }
 
 .box-:nth-of-type(2) {
-    font-size: 19px;
+    font-size: 2vh;
 }
 
 .idk h1 {
-    padding-top: 20px;
+    padding-top: 2vh;
     display: flex;
     justify-content: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 500;
-    font-size: 30px;
+    font-size: 3.2vh;
+}
+
+
+
+.reviewb img {
+    height:10vh;
+}
+
+.reviewb .box- {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    grid-row: auto auto;
+}
+
+.content h2 {
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content:nth-of-type(3){
+    grid-column: 1/3;
+}
+
+.content img {
+    border-radius: 10px;
 }
 
 
@@ -158,14 +185,14 @@ a:hover{
 
         /**vertically */
         align-items: center;
-        padding: 20px 0px;
-        font-size: 20px;
+        padding: 2.1vh 0px;
+        font-size: 2.1vh;
     }
 
     .item:nth-of-type(1) p{
         text-indent: 0%;
-        padding-top: 7px;
-        font-size: 13px;
+        padding-top: 0.7vh;
+        font-size: 1.4vh;
         color: #ffd8d6;
     }
 
@@ -177,7 +204,7 @@ a:hover{
 
     /**makes text on bottom span two rows of table! */
     .item:nth-of-type(3){
-        padding-top: 10px;
+        padding-top: 1.05vh;
         grid-column: 1/3;
     }
 
@@ -201,30 +228,33 @@ a:hover{
 
     /**makes it bigger when the scren is bigger */
     .idk h1{
-        font-size: 50px;
+        font-size: 5.5vh;
     }
 
     .idk .box- {
         flex-direction: column;
         margin: 5px 35% 30px;
     }
+
+    .reviewb  {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/**needs to be above the below media query */
+.con {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    background-color: #ff8161;
 }
 
 
 /**the site kinda breaks under 450 px so in case he tests like up to 150 it will work ok I guess */
 @media (max-width: 430px) {
-    
-    body { 
-        background-color: #FF5349; 
-    }
 
     .navbar {
         background-color: #FF5349;
-    }
-
-    /**they take up too much space  */
-    .logo img {
-        height: 0px;
     }
 
     .header img {
@@ -240,9 +270,8 @@ a:hover{
     }
 
     .con {
-        grid-template-columns: 1fr 100fr;
+        grid-template-columns: auto auto;
     }
-    
 }
 
 /**if you go too small, then no more Sider man art for you >:) */
@@ -278,7 +307,7 @@ a:hover{
     background-color: #FF5349;
     color: white;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 2.2vh;
     padding-bottom:100vh;
 }
 
@@ -296,16 +325,16 @@ a:hover{
 
 
 .cont {
-    font-size: 15px;
+    font-size: 1.5vh;
     background-color: black;
     color: rgb(255, 215, 215);
-    padding: 20px;
+    padding: 2vh 5%;
     text-align: left;
 }
 
 
 .cont img {
-    max-width: 30px;
+    max-height: 3.3vh;
 }
 
 /**
@@ -331,13 +360,13 @@ a:hover{
 
 /**spaces out horizontal */
 .footer ul li {
-    margin-right: 50px;
+    margin-right: 10%;
     display: flex;
     align-items: self-end;
 }
 
 .footer ul li a {
-    margin-left: 10px;
+    margin-left: 5%;
 }
 
 /**puts the list on to the top bar */
@@ -351,7 +380,7 @@ a:hover{
 /**formatting for link on form */
 .sub a {
     color: black;
-    font-size: 20px;
+    font-size: 2.1vh;
     font-weight: bold;
 }
 
@@ -366,24 +395,11 @@ a:hover{
     align-items: right;
 }
 
-/**overwirites like everything if its not contained in this media query. It is now officially speccial */
-@media (max-width: 800px) {
-    
-    .idk .box- {
-        display: contents;
-    }
-
-    .idk .form {
-        margin: 0 20%;
-    }
-    
-}
-
 
 /**ALl of the stuff past this is like pretty generic and I think I explained enough already */
 
 .img img {
-    max-height: 500px;
+    max-height: 54vh;
 }
 
 .img {
@@ -393,16 +409,10 @@ a:hover{
 }
 
 .con .img {
-    padding: 30px 5%;
+    padding: 3.1vh 5%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-}
-
-.con {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    background-color: #ff8161;
 }
 
 
@@ -412,9 +422,9 @@ a:hover{
 
 .fillium h1 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 43px;
+    font-size: 4.6vh;
     font-weight: 500;
-    padding-bottom: 10px;
+    padding-bottom: 1vh;
 }
 
 .idk h1 {
@@ -423,7 +433,7 @@ a:hover{
 
 .fillium p {
     text-indent: 5%;
-    font-size: 17px;
+    font-size: 1.7vh;
 }
 
 .vers img {
@@ -432,17 +442,19 @@ a:hover{
 
 .vers {
     margin-left: 2%;
-    padding-bottom: 30px;
+    padding-bottom: 3.1vh;
 }
 
 .name h1 {
-    display: flex;
-    justify-content: center;
-    font-size: 55px;
+    /**makes it so text off the far left side of the screen */
+    padding-left: 5%;
+    padding-top: 3vh;
+    font-size: 5.5vh;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 500;
 }
 
+/**makes the sideways scroll thing */
 .verse {
     overflow: auto;
     white-space: nowrap;
@@ -465,18 +477,36 @@ a:hover{
 }
 
 @media (max-width: 900px) {
-    .vers .box- {
-        display: contents;
-    }
-    .vers {
-        margin-right: 100px;
-    }
-
     .vers img {
         width: flex;
-        max-height: 200px;
+        max-height: 20vh;
     }
     .name h1 {
-        font-size: 40px;
+        font-size: 4vh;
     }
+}
+
+
+/**fixes problem from other thing */
+@media (min-width: 800px) {
+    .box-:nth-of-type(1) {
+        grid-row: 1/1;
+    }
+}
+
+.reviewb .box- h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4.5vh;
+    font-weight: 500;
+}
+
+.reviewb .box- p {
+    font-size: 2vh;
+}
+
+.review h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 500;
+    font-size: 6vh;
+    padding-left: 3%;
 }
