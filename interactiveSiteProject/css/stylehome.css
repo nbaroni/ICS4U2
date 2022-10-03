@@ -2,8 +2,9 @@
 /**all this one from google inspect element. it formats it how i want it  */
 .toprow {
     height: 10vh;
-    background-color: gray;
+    background-color: rgb(33, 36, 88);
     display: flex;
+    color: white;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -155,4 +156,17 @@
     .toprow input {
         font-size: 15px;
     }
+}
+
+
+body {
+    background-color: rgb(139, 139, 139);
+
+}
+
+
+.box- {
+    background-color: darkred;
+    box-shadow: 0px 5px 7px white;
+    color: white;
 }
