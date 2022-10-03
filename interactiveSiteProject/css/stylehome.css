@@ -1,5 +1,5 @@
 
-/**all this one from google inspect element. it formats it how i want it  */
+/**all this one from the inspect element menu */
 .toprow {
     height: 10vh;
     background-color: rgb(33, 36, 88);
@@ -157,13 +157,6 @@
         font-size: 15px;
     }
 }
-
-
-body {
-    background-color: rgb(139, 139, 139);
-
-}
-
 
 .box- {
     background-color: darkred;

@@ -14,7 +14,7 @@ body {
     font-size: 1.8vh;
     line-height: 1.5;
     color: black;
-    background: rgb(255, 188, 165);
+    background-color: rgb(139, 139, 139);
 }
 
 /**the real sider man image on the top B) */
@@ -98,7 +98,7 @@ a:hover{
 
 /**for the top part with the drawn sider man photo */
 .header {
-    background-color: #FF5349;
+    background-color: rgb(33, 36, 88);
     color: white;
     min-height: 50vh;
 }
@@ -261,9 +261,7 @@ a:hover{
         width: flex;
     }
 
-    .footer img {
-        height: 0px;
-    }
+
 
     .con .img img {
         height: 0px;
@@ -489,9 +487,14 @@ a:hover{
 
 /**fixes problem from other thing */
 @media (min-width: 800px) {
-    .box-:nth-of-type(1) {
+    .reviewClass .box-:nth-of-type(1) {
         grid-row: 1/1;
     }
+}
+
+.review h2 {
+    padding-left: 3%;
+    font-size: 3.5vh;
 }
 
 .reviewb .box- h2 {
@@ -509,4 +512,13 @@ a:hover{
     font-weight: 500;
     font-size: 6vh;
     padding-left: 3%;
+}
+
+
+.header {
+    padding: 0 5%;
+}
+
+.item p {
+    text-align: justify;
 }
