@@ -89,6 +89,7 @@
     width: 100%;
 }
 
+/**if i dont put this it becomes massive */
 .mbbody {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

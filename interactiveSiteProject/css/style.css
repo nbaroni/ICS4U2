@@ -458,6 +458,7 @@ a:hover{
     white-space: nowrap;
 }
 
+/**makes the text stop at the same spot on the right by adjusting the size of spaces between the words */
 .verse .vers {
     display: inline-block;
     color: white;
