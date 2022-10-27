@@ -44,7 +44,11 @@ const guessRows = [
 guessRows.forEach(guessRow => {
     const rowElement = document.createElement('clicked')
     rowElement.setAttribute('id', 'guessRow-' + guessRowIndex)
-
+    guessRow.forEach((guess, guessIndex) => {
+        const tileElement = document.createElement('div')
+        tileElement.setAttribute('id', 'guessRow-' + guessRowIndex + '-tile-' + guessIndex)
+        rowElement.append(tileElement)
+    })
     tileDisplay.append(rowElement)
 })
 
