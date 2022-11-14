@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAM LIQUID CURLING ASSOCIATION</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/a367d7e179.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Main container -->
+
+    <div>
+
+        <div class="notification is-danger">
+
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <span class="icon">
+                            <i class="fas fa-heart fa-xl"></i>
+                        </span>
+                    </div>
+                    <div class="level-item">
+                        <h3 class="level-item is-title">
+                            <a href="home.html"><strong>TEAM LIQUID CURLING ASSOCIATION</strong></a>
+                        </h3>
+                    </div>
+                    <div class="level-item">
+                        <span>
+                            <i class="fas fa-glass-water fa-xl"></i>
+                        </span>
+                    </div>
+
+                    <div class="level-item">
+                        <p>our teams</p>
+                    </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                    <p class="level-item"><a href="teams.html">Our Teams</a></p>
+                    <p class="level-item"><a href="standings.html">Current Standings</a></p>
+                    <p class="level-item"><a>Live Scores</a></p>
+                    <p class="level-item"><a class="button is-warning" href="https://www.paypal.com/">Donate</a></p>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="content is-large">
+            <h1>Here are all of the Team Liquid sponsored curling teams! </h1>
+
+            <h3>Click on a team's name or photo to see their scores!</h2>
+        </div>
+    </div>
+
+    <br>
+    <!--stuff built into here with js -->
+    <div class="container teams"></div>
+
+</body>
+
+
+
+
+<script>
+
+    const data = [
+        {
+            "Team": "Mouat",
+            "img": "img/mouat_team2022.jpeg",
+            "Fourth": "Bruce Mouat",
+            "Third": "Grant Hardie",
+            "Second": "Bobby Lammie",
+            "Lead": "Hammy McMillan Jr.",
+        },
+        {
+            "Team": "Koe",
+            "img": "img/koe_team2022.jpeg",
+            "Fourth": "Kevin Koe",
+            "Third": "Tyler Tardi",
+            "Second": "Brad Thiessen",
+            "Lead": "Karrick Martin",
+        },
+        {
+            "Team": "Bottcher",
+            "img": "img/bottcher_team2022.jpeg",
+            "Fourth": "Brendan Bottcher",
+            "Third": "Marc Kennedy",
+            "Second": "Brett Gallant",
+            "Lead": "Ben Hebert",
+        },
+        {
+            "Team": "Dunstone",
+            "img": "img/dunstone_team2022.jpeg",
+            "Fourth": "Matt Dunstone",
+            "Third": "B.J. Neufeld",
+            "Second": "Colton Lott",
+            "Lead": "Ryan Harnden",
+        },
+        {
+            "Team": "Whyte",
+            "img": "img/whyte_team2022.jpeg",
+            "Fourth": "Ross Whyte",
+            "Third": "Robin Brydone",
+            "Second": "Duncan McFadzean",
+            "Lead": "Euan Kyle",
+        },
+    ];
+    console.log(data)
+
+    const section = document.querySelector("body > div.container.teams");
+
+    build(data);
+
+    function build(data) {
+        data.forEach((team) => {
+            section.appendChild(createDiv(false, 'container', team.Team))
+
+
+            //I was legitemately in shock when this section of code worked FIRST TRY. I am insane
+            const cont = document.querySelector(`.container .${team.Team}`)
+            cont.appendChild(createDiv(false, 'content', 'is-large', 'Team ' + team.Team))
+
+            let img = document.createElement('img');
+            img.setAttribute("src", team.img)
+            cont.appendChild(img)
+
+            let tbody = document.createElement('tbody')
+            tbody.classList.add('table')
+            tbody.classList.add('is-bordered')
+            tbody.classList.add('is-fullwidth')
+            tbody.classList.add(team.Team)
+            cont.appendChild(tbody)
+
+            const row = document.createElement('tr')
+            row.appendChild(createDiv(true, "", "", "Fourth: " + team.Fourth))
+            row.appendChild(createDiv(true, "", "", "Third: " + team.Third))
+            row.appendChild(createDiv(true, "", "", "Second: " + team.Second))
+            row.appendChild(createDiv(true, "", "", "Lead: " + team.Lead))
+
+            const table = document.querySelector(`body > div.container.teams > div > tbody.${team.Team}`)
+            table.appendChild(row)
+            section.appendChild(document.createElement('br'));
+        })
+    }
+
+    function createDiv(isTable, className1, className2, divText) {
+
+        //I know this is not the way to do it but i dont care it is easy copy paste moment
+        if (isTable) {
+            let div = document.createElement('td');
+
+            try {
+                //code will break if empty class name is added so I need this try catch thing
+                div.classList.add(className1);
+                div.classList.add(className2);
+            } catch (error) { }
+            div.textContent = divText;
+
+            return div;
+        } else {
+            let div = document.createElement('div');
+
+            try {
+                //code will break if empty class name is added so I need this try catch thing
+                div.classList.add(className1);
+                div.classList.add(className2);
+            } catch (error) { }
+            div.textContent = divText;
+
+            return div;
+        }
+
+
+
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content is-medium">
+            <h1>Here are all the recent games played by team Koe!</h1>
+        </div>
+    </div>
+    <div class="container">
+        <table id="scores" class="table is-fullwidth">
+            <thead>
+                <tr>
+                    <th class="N">Team Name</th>
+                    <th class="1">1</th>
+                    <th class="2">2</th>
+                    <th class="3">3</th>
+                    <th class="4">4</th>
+                    <th class="5">5</th>
+                    <th class="6">6</th>
+                    <th class="7">7</th>
+                    <th class="8">8</th>
+                    <th class="Tot">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    const data = '[{"Name": "Mouat", "1":0, "2":1, "3":0, "4":0, "5":2, "6":0, "7":0, "8":2},{"Name": "Koe", "1":1, "2":0, "3":0, "4":2, "5":0, "6":1, "7":0, "8":0}]';
+    scores = JSON.parse(data);
+    console.log(scores);
+
+    let tableBody = document.querySelector('#scores tbody');
+
+    createTable(scores);
+
+    function createTable(scores) {
+
+        scores.forEach((score) => {
+            const row = document.createElement('tr');
+            let td = document.createElement('td');
+            td.textContent = score.Name;
+            row.appendChild(td);
+
+            let totalScore = 0;
+            for (i = 1; i < Object.keys(score).length; i++) {
+                td = document.createElement('td');
+                td.textContent = score[i];
+                row.appendChild(td);
+                totalScore = totalScore + score[i]
+            }
+            td = document.createElement('td');
+            td.textContent = totalScore;
+            row.appendChild(td);
+
+            tableBody.appendChild(row);
+        })
+    }
+
+</script>
+
+</html>

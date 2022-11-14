@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAM LIQUID CURLING ASSOCIATION</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/a367d7e179.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Main container -->
+
+    <div>
+
+        <div class="notification is-danger">
+
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <span class="icon">
+                            <i class="fas fa-heart fa-xl"></i>
+                        </span>
+                    </div>
+                    <div class="level-item">
+                        <h3 class="level-item is-title">
+                            <a href="home.html"><strong>TEAM LIQUID CURLING ASSOCIATION</strong></a>
+                        </h3>
+                    </div>
+                    <div class="level-item">
+                        <span>
+                            <i class="fas fa-glass-water fa-xl"></i>
+                        </span>
+                    </div>
+
+                    <div class="level-item">
+                        <p>standings</p>
+                    </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                    <p class="level-item"><a href="teams.html">Our Teams</a></p>
+                    <p class="level-item"><a href="standings.html">Current Standings</a></p>
+                    <p class="level-item"><a>Live Scores</a></p>
+                    <p class="level-item"><a class="button is-warning" href="https://www.paypal.com/">Donate</a></p>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+
+
+    <!--want a space there-->
+    <div class="container mt-4">
+        <h1 class="title">Standings</h1>
+
+        <div class="table-container">
+            <table id="standings" class="table is-striped">
+                <thead>
+                    <tr>
+                        <th onclick="sort('Name');" class="N">Name </th>
+                        <th onclick="sort('Wins');" class="W">Wins </th>
+                        <th onclick="sort('Losses');" class="L">Losses </th>
+                        <th onclick="sort('PTS');" class="PTS">Prize Money($USD) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+
+<script>
+    const data = '[{"Name": "Mouat", "W":100, "L":0, "PTS":200},{"Name":"Gushue","W":8,"L":3,"PTS":16},{"Name":"Edin","W":5,"L":8,"PTS":10},{"Name":"Dunstone","W":10,"L":3,"PTS":20},{"Name":"Jacobs","W":4,"L":9,"PTS":8},{"Name":"Bottcher","W":3,"L":7,"PTS":6},{"Name": "Koe", "W":5, "L":9, "PTS":10}]';
+    teams = JSON.parse(data);
+    console.log(teams);
+
+    let tableHeadPTS = document.querySelector('tr .PTS')
+    let tableBody = document.querySelector('#standings tbody');
+
+    createTable(teams);
+
+    function createTable(teams) {
+        tableBody.replaceChildren();
+
+        teams.forEach((team) => {
+            const row = document.createElement('tr');
+            let td = document.createElement('td');
+            td.textContent = team.Name;
+            row.appendChild(td);
+
+            td = document.createElement('td');
+            td.textContent = team.W;
+            row.appendChild(td);
+
+            td = document.createElement('td');
+            td.textContent = team.L;
+            row.appendChild(td);
+
+            td = document.createElement('td');
+            td.textContent = team.PTS;
+            row.appendChild(td);
+
+            tableBody.appendChild(row);
+        })
+    }
+
+    let nTimes = 0;
+    let pTimes = 0;
+    let wTimes = 0;
+    let lTimes = 0;
+    let icon = document.createElement('i');
+    let arrowLocation = document.querySelector('#standings > thead > tr > th.PTS')
+
+    function sort(field) {
+
+        icon.remove()
+        icon = document.createElement('i')
+
+        if (field === 'Name') {
+            arrowLocation = document.querySelector('#standings > thead > tr > th.N')
+            //want to add icon arrow pointing up or down
+            //gets the remainder
+            if (nTimes % 2 == 0) {
+                teams = teams.sort((teamA, teamB) => {
+                    return (teamA.Name < teamB.Name) ? -1 : 1
+                });
+                nTimes++;
+                changeArrow(arrowLocation, true);
+            } else {
+                teams = teams.sort((teamA, teamB) => {
+                    return (teamA.Name > teamB.Name) ? -1 : 1
+                });
+                nTimes++;
+                changeArrow(arrowLocation, false);
+            }
+        } else if (field === 'PTS') {
+            arrowLocation = document.querySelector('#standings > thead > tr > th.PTS')
+            //want to add icon arrow pointing up or down
+            //gets the remainder
+            if (pTimes % 2 == 0) {
+                teams = teams.sort((teamA, teamB) => teamB.PTS - teamA.PTS);
+                pTimes++;
+                changeArrow(arrowLocation, true);
+            } else {
+                teams = teams.sort((teamA, teamB) => teamA.PTS - teamB.PTS);
+                pTimes++;
+                changeArrow(arrowLocation, false);
+            }
+        } else if (field === 'Wins') {
+            arrowLocation = document.querySelector('#standings > thead > tr > th.W');
+
+            if (wTimes % 2 == 0) {
+                teams = teams.sort((teamA, teamB) => teamB.W - teamA.W);
+                wTimes++;
+                changeArrow(arrowLocation, true);
+            } else {
+                teams = teams.sort((teamA, teamB) => teamA.W - teamB.W);
+                wTimes++;
+                changeArrow(arrowLocation, false);
+            }
+        } else if (field === 'Losses') {
+            arrowLocation = document.querySelector('#standings > thead > tr > th.L');
+
+            //want to initially sort by lowest # losses first
+            if (lTimes % 2 == 1) {
+                teams = teams.sort((teamA, teamB) => teamB.L - teamA.L);
+                lTimes++;
+
+                changeArrow(arrowLocation, true);
+            } else {
+                teams = teams.sort((teamA, teamB) => teamA.L - teamB.L);
+                lTimes++;
+                changeArrow(arrowLocation, false);
+            }
+        }
+
+        createTable(teams);
+    }
+
+    function changeArrow(location, up) {
+
+
+        if (up) {
+            icon.setAttribute("class", "fa-solid fa-arrow-up");
+            location.appendChild(icon);
+        } else {
+            icon.setAttribute("class", "fa-solid fa-arrow-down");
+            location.appendChild(icon);
+        }
+    }
+
+
+
+</script>
+
+</html>
