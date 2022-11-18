@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEAM LIQUID CURLING ASSOCIATION</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/a367d7e179.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Main container -->
+
+    <div>
+
+        <div class="notification is-danger">
+
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <span class="icon">
+                            <i class="fas fa-heart fa-xl"></i>
+                        </span>
+                    </div>
+                    <div class="level-item">
+                        <h3 class="level-item is-title">
+                            <a href="home.html"><strong>TEAM LIQUID CURLING ASSOCIATION</strong></a>
+                        </h3>
+                    </div>
+                    <div class="level-item">
+                        <span>
+                            <i class="fas fa-glass-water fa-xl"></i>
+                        </span>
+                    </div>
+
+                    <div class="level-item">
+                        <p>home</p>
+                    </div>
+                </div>
+
+                <!-- Right side -->
+                <div class="level-right">
+                    <p class="level-item"><a href="teams.html">Our Teams</a></p>
+                    <p class="level-item"><a href="standings.html">Current Standings</a></p>
+                    <p class="level-item"><a>Live Scores</a></p>
+                    <p class="level-item"><a class="button is-warning" href="login.html">Login</a></p>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="content is-large">
+            <h1>Hello! Score inputting moment.</h1>
+        </div>
+    <div>
+
+    <div class="container">
+        <table class="table is-fullwidth">
+            <thead>
+                <th>Team</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>Total</th>
+            </thead>
+            <tbody>
+                <tr>
+                    
+                </tr>
+                <tr>
+                    
+                </tr>
+            </tbody>
+        </table>
+        <p><span class="button is-primary" onclick="addLocalStorage();">Submit</span></p>
+    </div>
+</body>
+
+<script>
+    let data = JSON.parse(localStorage.getItem('teams'));
+
+    const row1 = document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(1)")
+    const row2 = document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(2)")
+
+    build(row1);
+    build(row2);
+
+    function build(row) {
+        let cell = document.createElement('td')
+        let teamDropdown = document.createElement('select')
+
+        teamDropdown.classList.add('select')
+        teamDropdown.classList.add('is-medium')
+        teamDropdown.classList.add('is-danger')
+
+        for (i = 0; i < Object.keys(data).length; i++ ) {
+            let option = document.createElement('option')
+            option.textContent = data[i].Team
+            option.setAttribute('value', data[i].Team)
+            teamDropdown.appendChild(option)
+        }
+        cell.appendChild(teamDropdown);
+        row.appendChild(cell);
+
+        for (i = 0; i < 9; i++ ){
+            let td = document.createElement('td');
+            let select = document.createElement('select')
+
+            select.classList.add('select')
+            select.classList.add('is-medium')
+            select.classList.add('is-danger')
+
+            for (j = 0; j < 9; j++ ) {
+                let option = document.createElement('option');
+                option.textContent = j;
+                option.setAttribute('value', j)
+                select.appendChild(option)
+            }
+            td.appendChild(select);
+            row.appendChild(td);
+        }
+        row.appendChild(document.createElement('td'))
+    }
+
+    function addLocalStorage() {
+        console.log()
+    }
+</script>
+
+</html>

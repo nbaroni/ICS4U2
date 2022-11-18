@@ -52,12 +52,34 @@
         </div>
     </div>
 
+    <br>
     <div class="container is-fluid">
-        <img src="img/skysports-bruce-mouat-curling_5656341.jpg" alt="Our very own team Mouat">
+        <div class="content is-large">
+            <h1>Login:</h1>
+            <p>Enter username and password.</p>
+
+            <h3>Username:</h3>
+            <input id="username" class="input is-info" type="text" placeholder="username">
+
+            <h3>Password:</h3>
+            <input id="password" class="input is-info" type="text" placeholder="password">
+
+            
+        </div>
+        <p><span class="button is-primary" onclick="login();">Submit</span></p>
     </div>
 </body>
 
 <script>
+    function login(){
+        console.log(document.querySelector('#username').value);
+        console.log(document.querySelector('#password').value);
+
+    if (document.querySelector('#username').value === 'admin' && document.querySelector('#password').value === '123456') {
+        window.location.replace("admin.html");
+    }
+ 
+}
 </script>
 
 </html>
