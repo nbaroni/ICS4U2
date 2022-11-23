@@ -206,6 +206,7 @@
                             "9": document.querySelector('.main-table tbody tr:nth-child(1) td:nth-child(10) select').value,
                         }
                     )
+                    //need to put !winner for some reason but its fine because it works
                     let winCount = parseInt(localStorage.getItem(team.Team + "Wins")) + !winner
                     localStorage.setItem(team.Team + "Wins", winCount.toString())
                 }
