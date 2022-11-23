@@ -75,61 +75,66 @@
 
 
 <script>
-/*
-    const data = [
-        {
-            "Team": "Mouat",
-            "img": "img/mouat_team2022.jpeg",
-            "Fourth": "Bruce Mouat",
-            "Third": "Grant Hardie",
-            "Second": "Bobby Lammie",
-            "Lead": "Hammy McMillan Jr.",
-            "games":[]
-        },
-        {
-            "Team": "Koe",
-            "img": "img/koe_team2022.jpeg",
-            "Fourth": "Kevin Koe",
-            "Third": "Tyler Tardi",
-            "Second": "Brad Thiessen",
-            "Lead": "Karrick Martin",
-            "games":[{"Name": "Mouat", "1":0, "2":1, "3":0, "4":0, "5":2, "6":0, "7":0, "8":2},{"Name": "Koe", "1":1, "2":0, "3":0, "4":2, "5":0, "6":1, "7":0, "8":0}],
-        },
-        {
-            "Team": "Bottcher",
-            "img": "img/bottcher_team2022.jpeg",
-            "Fourth": "Brendan Bottcher",
-            "Third": "Marc Kennedy",
-            "Second": "Brett Gallant",
-            "Lead": "Ben Hebert",
-            "games":[]
-        },
-        {
-            "Team": "Dunstone",
-            "img": "img/dunstone_team2022.jpeg",
-            "Fourth": "Matt Dunstone",
-            "Third": "B.J. Neufeld",
-            "Second": "Colton Lott",
-            "Lead": "Ryan Harnden",
-            "games":[]
-        },
-        {
-            "Team": "Whyte",
-            "img": "img/whyte_team2022.jpeg",
-            "Fourth": "Ross Whyte",
-            "Third": "Robin Brydone",
-            "Second": "Duncan McFadzean",
-            "Lead": "Euan Kyle",
-            "games":[]
-        },
-    ];
 
-    const gameString = JSON.stringify(data);
+    if (localStorage.getItem('teams') == null) {
+        const data = [
+            {
+                "Team": "Mouat",
+                "img": "img/mouat_team2022.jpeg",
+                "Fourth": "Bruce Mouat",
+                "Third": "Grant Hardie",
+                "Second": "Bobby Lammie",
+                "Lead": "Hammy McMillan Jr.",
+                "games": [],
+            },
+            {
+                "Team": "Koe",
+                "img": "img/koe_team2022.jpeg",
+                "Fourth": "Kevin Koe",
+                "Third": "Tyler Tardi",
+                "Second": "Brad Thiessen",
+                "Lead": "Karrick Martin",
+                "games": [],
+            },
+            {
+                "Team": "Bottcher",
+                "img": "img/bottcher_team2022.jpeg",
+                "Fourth": "Brendan Bottcher",
+                "Third": "Marc Kennedy",
+                "Second": "Brett Gallant",
+                "Lead": "Ben Hebert",
+                "games": [],
+            },
+            {
+                "Team": "Dunstone",
+                "img": "img/dunstone_team2022.jpeg",
+                "Fourth": "Matt Dunstone",
+                "Third": "B.J. Neufeld",
+                "Second": "Colton Lott",
+                "Lead": "Ryan Harnden",
+                "games": [],
+            },
+            {
+                "Team": "Whyte",
+                "img": "img/whyte_team2022.jpeg",
+                "Fourth": "Ross Whyte",
+                "Third": "Robin Brydone",
+                "Second": "Duncan McFadzean",
+                "Lead": "Euan Kyle",
+                "games": [],
+            },
+        ];
+
+
+
+        const gameString = JSON.stringify(data);
         localStorage.setItem('teams', gameString);
 
-    console.log(data)
-    */
-
+        for(i = 0; i < Object.keys(data).length; i++) {
+            localStorage.setItem(data[i].Team + "Wins", "0")
+        }
+    }
+    
     const data = JSON.parse(localStorage.getItem('teams'));
 
     const section = document.querySelector("body > div.container.teams");
