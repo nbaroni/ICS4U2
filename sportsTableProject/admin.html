@@ -61,7 +61,7 @@
         </div>
         <div>
 
-            <div class="container">
+            <div class="table-container">
                 <table class="table main-table is-fullwidth">
                     <thead>
                         <th>Team</th>
@@ -85,12 +85,17 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <p><span class="button is-primary" onclick="addLocalStorage();">Submit</span></p>
                 <br>
+                <div id="invalid">
+
+                </div>
+
             </div>
             <br>
 
-            <div class="container">
+            <!-- <div class="container">
                 <div class="content is-large">
                     <h1>Set Win Amount:</h1>
                 </div>
@@ -98,12 +103,13 @@
 
                 </div>
                 <br>
-                <p><span class="button is-warning" onclick="updateWinsLocalStorage();">Update</span></p>
-            </div>
+                <p><span class="button is-warning" type ="number" onclick="updateWinsLocalStorage();">Update</span></p>
+            </div> -->
 
-            <br><br><br>
+            <br>
             <div class="container">
-                <p><span class="button is-info" onclick="resetLocalStorage();">Load Preset Data Into Local Storage</span></p>
+                <p><span class="button is-info" onclick="resetLocalStorage();">Load Preset Data Into Local
+                        Storage</span></p>
             </div>
 
 </body>
@@ -152,6 +158,13 @@
         row.appendChild(document.createElement('td'))
     }
 
+    //checks if string has special character
+    function containsSpecialChars(str) {
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~ ]/;
+        return specialChars.test(str);
+    }
+
+
     //adds what has been submitted to the local storage
     function addLocalStorage() {
         data.forEach(team => {
@@ -160,16 +173,22 @@
             //makes a boolean. Determines if the top score is higher than the bottom score to determine the winner
             let winner = parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(11)").textContent) > parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(11)").textContent)
 
-            //if one or both fields for team input is invalid, or if the scores are equal (they should never be), it wont let you submit and will change the submit button text and colour
-            if (document.querySelector('.main-table tbody tr:nth-child(1) td:nth-child(1) select').value === 'Select a team' || document.querySelector("#team2").value === '' || parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(11)").textContent) == parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(11)").textContent)) {
-                let submitButton = document.querySelector("body > div.container > div:nth-child(2) > div > p > span")
+            //if one or both fields for team input is invalid, or if the scores are equal (they should never be), it wont let you submit and will put a notification thingy.
+            if (document.querySelector('.main-table tbody tr:nth-child(1) td:nth-child(1) select').value === 'Select a team' || containsSpecialChars(document.querySelector("#team2").value) || document.querySelector("#team2").value == '' || parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td:nth-child(11)").textContent) == parseInt(document.querySelector("body > div.container > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td:nth-child(11)").textContent)) {
 
-                //changers colour
-                submitButton.classList.remove("is-primary")
-                submitButton.classList.add('is-danger')
+                //for some reason it puts it five times so i check if its there and if its not then itll create the notification thing
+                if (document.querySelector('#invalid > div:nth-child(1)') == null) {
+                    let theLocation = document.querySelector("#invalid")
 
-                //changes text
-                submitButton.textContent = 'Invalid Input'
+                    //sorts out the bulma notfication thing.
+                    let notification = document.createElement("div")
+                    notification.classList.add('notification')
+                    notification.classList.add('is-danger')
+                    notification.classList.add("is-light");
+                    notification.textContent = 'Invalid Input'
+
+                    theLocation.appendChild(notification)
+                }
 
             }
             else {
@@ -286,7 +305,14 @@
             teamDropdown.appendChild(option)
         }
         cell.appendChild(teamDropdown);
-        row.appendChild(cell);
+
+        //for whatever reason this stuff likes to run more times than it should so if it encounters an error itll just leave the method.
+        try {
+            row.appendChild(cell);
+        } catch (error) {
+            
+        }
+
     }
 
     //creates an input box. Param 1: where it goes, Param 2: placeholder text, Param 3: the id of the input box
@@ -302,7 +328,13 @@
         input.setAttribute("placeholder", placeholder)
 
         cell.appendChild(input);
-        row.appendChild(cell);
+
+        //for whatever reason this stuff likes to run more times than it should so if it encounters an error itll just leave the method.
+        try {
+            row.appendChild(cell);            
+        } catch (error) {
+            
+        }
     }
 
     //updates the total score on the far right of the table
@@ -326,13 +358,13 @@
     }
 
     //this is for the like shortcut thing I used to debug for a bit that edits the amt of wins a team has in the local storage. It has no verification check, but I mean like if the team is on 'select a team' its not going to work anyways. ANd its very easy to reset to the correct amount of wins if a mistake is made.
-    function updateWinsLocalStorage() {
-        let index = getIndex();
-        data[index].Wins = document.querySelector("#winsAmt").value;
-        localStorage.setItem('teams', JSON.stringify(data));
+    // function updateWinsLocalStorage() {
+    //     let index = getIndex();
+    //     data[index].Wins = document.querySelector("#winsAmt").value;
+    //     localStorage.setItem('teams', JSON.stringify(data));
 
-        location.reload();
-    }
+    //     location.reload();
+    // }
 
     //just borrowed this from my other file. Its useful enough.
     function getIndex() {

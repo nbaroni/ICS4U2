@@ -8,6 +8,11 @@
     <title>Game</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+    <style>
+        .remove {
+            display: none
+        }
+    </style>
 </head>
 
 <body>
@@ -63,7 +68,9 @@
         </div>
     </div>
     <div class="container">
-        <!-- <table id="scores" class="table is-fullwidth">
+
+        <div class="table-container">
+            <!-- <table id="scores" class="table is-fullwidth">
             <thead>
                 <tr>
                     <th class="N">Team Name</th>
@@ -82,14 +89,15 @@
             <tbody>
             </tbody>
         </table> -->
+        </div>
     </div>
 </body>
 <script>
     const data = JSON.parse(localStorage.getItem('teams'));
 
-    
 
-    const tableContainer = document.querySelector("body > div:nth-child(4)");
+
+    const tableContainer = document.querySelector("body > div:nth-child(4) > div");
 
 
     addTitle();
@@ -117,6 +125,13 @@
     function updateValue(e) {
         log = e.target.value.toLowerCase();
 
+        //try to do this so itll remove the no games found text thing if its there and the filter field is typed in
+        try {
+            document.querySelector("#invalidinput").remove();
+        } catch (error) {
+            
+        }
+
         //need to do this stuff as a kind of reset for when the box is typed in. Otherwise itll go haywire.
         gamesArray = []
         pageNumber = 1
@@ -126,54 +141,54 @@
             numTables = data[index].games.length / 2;
 
             paginationNation(0);
-        }else {
+        } else {
             for (m = 0; m < Object.keys(data[index].games).length; m++) {
 
                 //need to make everything lower case here just to be sure that everything is included :)
-            if (data[index].games[m].Name.toLowerCase().includes(log)) {
-            gamesArray.push(data[index].games[m - 1]);
-            gamesArray.push(data[index].games[m]);
+                if (data[index].games[m].Name.toLowerCase().includes(log)) {
+                    gamesArray.push(data[index].games[m - 1]);
+                    gamesArray.push(data[index].games[m]);
 
-            numTables = gamesArray.length / 2;
+                    numTables = gamesArray.length / 2;
+                }
+            }
+
+            //no idea why it tries to make more than 0 tables but whatever
+            if (gamesArray.length == 0) {
+                numTables = 0;
+            }
+
+            //index 0 because team name is always in index 0
+            if (data[index].games[0].Name.toLowerCase().includes(log)) {
+
+                //I know this is super sketchy but I have no idea why it likes to create a blank set of tables on page 1 so lets just set the page number to two and grey out the back button so no one can go back a page. 
+                pageNumber = 2;
+
+                let backButton = document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous");
+                backButton.classList.add("has-background-grey-light");
+
+                //the array becomes all messed up so I just reset it
+                gamesArray = data[index].games
+
+                //I have no reason why but this number equates wrong every time so I just reset it again 
+                numTables = data[index].games.length / 2;
+
+                //I pass in -1 precisely so it will just return out of the method instantly.
+                paginationNation(-1)
+            } else {
+
+                //I pass in 0 because I need to pass in a number and I pass in -1 for page back and +1 for page forward so I thought 0 would be a great middle ground. Turns out it works really well
+                paginationNation(0)
+            }
+
+
         }
-        }
 
-        //no idea why it tries to make more than 0 tables but whatever
-        if (gamesArray.length == 0) {
-            numTables = 0;
-        }
 
-        //index 0 because team name is always in index 0
-        if (data[index].games[0].Name.toLowerCase().includes(log)) {
+        //I repurpose my pagination method here because it works for the filtering surprisingly well. I pass in 1 to turn to next page and -1 to turn to before page, so I figured passing in 0 would work well.
 
-            //I know this is super sketchy but I have no idea why it likes to create a blank set of tables on page 1 so lets just set the page number to two and grey out the back button so no one can go back a page. 
-            pageNumber = 2;
-
-            let backButton = document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous");
-            backButton.classList.add("has-background-grey-light");
-
-            //the array becomes all messed up so I just reset it
-            gamesArray = data[index].games
-
-            //I have no reason why but this number equates wrong every time so I just reset it again 
-            numTables = data[index].games.length / 2;
-
-            //I pass in -1 precisely so it will just return out of the method instantly.
-            paginationNation(-1)
-        } else {
-
-            //I pass in 0 because I need to pass in a number and I pass in -1 for page back and +1 for page forward so I thought 0 would be a great middle ground. Turns out it works really well
-            paginationNation(0)
-        }
-
-        
     }
 
-
-    //I repurpose my pagination method here because it works for the filtering surprisingly well. I pass in 1 to turn to next page and -1 to turn to before page, so I figured passing in 0 would work well.
-    
-    }
-        
 
     //I initially used i as my index but it didnt work for whatever reason so k is always a good kandidate haha Im so funny
     //also this is for the initial table creation. It will always try to create four, since there is more than four games per team period.
@@ -288,27 +303,20 @@
 
     //deals with rebuilding tables
     function paginationNation(whatPage) {
+
         let atMaxPage = false;
         let atMinPage = false;
+        document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-next").classList.remove('remove')
+        document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous").classList.remove('remove')
 
         //returns out of the method if you press the next button and the next button is grey (at the maximum value)
         if (document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-next.has-background-grey-light") !== null) {
             atMaxPage = true
         }
+
         if (atMaxPage && whatPage == 1) {
             return;
         }
-
-        //returns out of the method if you press the next button and the next button is grey (at the maximum value)
-        if (document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous.has-background-grey-light") !== null) {
-            atMinPage = true
-        }
-
-        //this is like the defintion of sketchy but it works so I dont care.
-        if (atMinPage && whatPage == -1) {
-            return;
-        }
-
 
         //deals with the colours of the pagination (nation) buttons
         if (pageNumber + whatPage > 1)
@@ -326,6 +334,23 @@
             // return;
         }
 
+        //need this again because the button may have changed colour;
+        if (document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-next.has-background-grey-light") !== null) {
+            atMaxPage = true
+        } else {
+            atMaxPage = false;
+        }
+
+        //returns out of the method if you press the prev button and the button is grey (at the min value)
+        if (document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous.has-background-grey-light") !== null) {
+            atMinPage = true
+        }
+
+        if (atMaxPage && atMinPage) {
+            document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-next").classList.add('remove')
+            document.querySelector("body > div:nth-child(3) > div > nav > a.pagination-previous").classList.add('remove')
+        }
+
         pageNumber = pageNumber + whatPage;
 
         //gets rid of all the existing tables
@@ -336,13 +361,15 @@
             let textLocation = document.querySelector("body > div:nth-child(4)")
 
             let div = document.createElement('div')
+            div.setAttribute('id', 'invalidinput')
             div.classList.add('content')
             div.classList.add('is-large')
 
             let h1 = document.createElement('h4')
-            h1.textContent = "Search params invalid."
+            h1.textContent = "No games played."
 
-            textLocation.appendChild(document.createElement('br'))
+            //append this to the div rather than the main thing so when I remove the div and readd it EVERY TIME the field is typed in, it wont keep stacking up brs
+            div.appendChild(document.createElement('br'))
             div.appendChild(h1)
             textLocation.appendChild(div)
 
