@@ -45,7 +45,6 @@
                 <div class="level-right">
                     <p class="level-item"><a href="teams.html">Our Teams</a></p>
                     <p class="level-item"><a href="standings.html">Current Standings</a></p>
-                    <p class="level-item"><a>Live Scores</a></p>
                     <p class="level-item"><a class="button is-warning" href="login.html">Login</a></p>
                 </div>
             </nav>
@@ -59,13 +58,13 @@
         <h1 class="title">Standings</h1>
 
         <div class="table-container">
-            <table id="standings" class="table is-striped">
+            <table id="standings" class="table is-striped is-fullwidth">
                 <thead>
                     <tr>
                         <th onclick="sort('Name');" class="N">Name </th>
                         <th onclick="sort('Wins');" class="W">Wins </th>
                         <th onclick="sort('Losses');" class="L">Losses </th>
-                        <th onclick="sort('PTS');" class="PTS">Prize Money($USD) </th>
+                        <th onclick="sort('PTS');" class="PTS">Pct </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,46 +76,67 @@
 </body>
 
 <script>
-    const data = '[{"Name": "Mouat", "W":100, "L":0, "PTS":200},{"Name":"Gushue","W":8,"L":3,"PTS":16},{"Name":"Edin","W":5,"L":8,"PTS":10},{"Name":"Dunstone","W":10,"L":3,"PTS":20},{"Name":"Jacobs","W":4,"L":9,"PTS":8},{"Name":"Bottcher","W":3,"L":7,"PTS":6},{"Name": "Koe", "W":5, "L":9, "PTS":10}]';
-    teams = JSON.parse(data);
-    console.log(teams);
+    const data = JSON.parse(localStorage.getItem('teams'));
 
     let tableHeadPTS = document.querySelector('tr .PTS')
     let tableBody = document.querySelector('#standings tbody');
 
-    createTable(teams);
+    createTable();
 
+    //this creates the table
     function createTable(teams) {
         tableBody.replaceChildren();
 
-        teams.forEach((team) => {
+        //iterates through each team. Just like a for each loop would. Imagine using that.
+        for (i = 0; i < Object.keys(data).length; i++) {
             const row = document.createElement('tr');
             let td = document.createElement('td');
-            td.textContent = team.Name;
+            td.textContent = data[i].Team;
             row.appendChild(td);
 
+            //wins counter
             td = document.createElement('td');
-            td.textContent = team.W;
+            td.textContent = data[i].Wins
             row.appendChild(td);
 
+            //losses counter
             td = document.createElement('td');
-            td.textContent = team.L;
+            td.textContent = (data[i].games.length / 2) - data[i].Wins
             row.appendChild(td);
 
+            //percentage calculator
             td = document.createElement('td');
-            td.textContent = team.PTS;
-            row.appendChild(td);
 
+            //wins over games played
+            let percentage = (parseInt(data[i].Wins)) / (data[i].games.length / 2)
+
+            //limits the amt of decimal points
+            td.textContent = percentage.toFixed(3)
+            row.appendChild(td);
             tableBody.appendChild(row);
-        })
+
+            //if the team hasnt played any games, itll put 0 as the pct intstead of NaN
+            if (document.querySelector(`#standings > tbody > tr:nth-child(${i + 1}) > td:nth-child(2)`).textContent === '0' && document.querySelector(`#standings > tbody > tr:nth-child(${i + 1}) > td:nth-child(3)`).textContent === '0') {
+                td.textContent = '0'
+            }
+
+        }
+
     }
 
+
+    //times each thing has been sorted (keeps track so it can change direction each time its sorted)
     let nTimes = 0;
     let pTimes = 0;
     let wTimes = 0;
     let lTimes = 0;
+
+    //creates the icon which is an up/down arrow from fontawesome
     let icon = document.createElement('i');
     let arrowLocation = document.querySelector('#standings > thead > tr > th.PTS')
+
+    //need this variable because data is constant and cant be reordered.
+    let teams = data;
 
     function sort(field) {
 
@@ -129,13 +149,13 @@
             //gets the remainder
             if (nTimes % 2 == 0) {
                 teams = teams.sort((teamA, teamB) => {
-                    return (teamA.Name < teamB.Name) ? -1 : 1
+                    return (teamA.Team < teamB.Team) ? -1 : 1
                 });
                 nTimes++;
                 changeArrow(arrowLocation, true);
             } else {
                 teams = teams.sort((teamA, teamB) => {
-                    return (teamA.Name > teamB.Name) ? -1 : 1
+                    return (teamA.Team > teamB.Team) ? -1 : 1
                 });
                 nTimes++;
                 changeArrow(arrowLocation, false);
@@ -145,11 +165,11 @@
             //want to add icon arrow pointing up or down
             //gets the remainder
             if (pTimes % 2 == 0) {
-                teams = teams.sort((teamA, teamB) => teamB.PTS - teamA.PTS);
+                teams = teams.sort((teamA, teamB) => ((parseInt(teamB.Wins)) / (teamB.games.length / 2) - (parseInt(teamA.Wins)) / (teamA.games.length / 2)));
                 pTimes++;
                 changeArrow(arrowLocation, true);
             } else {
-                teams = teams.sort((teamA, teamB) => teamA.PTS - teamB.PTS);
+                teams = teams.sort((teamA, teamB) => (parseInt(teamA.Wins)) / (teamA.games.length / 2) - (parseInt(teamB.Wins)) / (teamB.games.length / 2));
                 pTimes++;
                 changeArrow(arrowLocation, false);
             }
@@ -157,11 +177,11 @@
             arrowLocation = document.querySelector('#standings > thead > tr > th.W');
 
             if (wTimes % 2 == 0) {
-                teams = teams.sort((teamA, teamB) => teamB.W - teamA.W);
+                teams = teams.sort((teamA, teamB) => teamB.Wins - teamA.Wins);
                 wTimes++;
                 changeArrow(arrowLocation, true);
             } else {
-                teams = teams.sort((teamA, teamB) => teamA.W - teamB.W);
+                teams = teams.sort((teamA, teamB) => teamA.Wins - teamB.Wins);
                 wTimes++;
                 changeArrow(arrowLocation, false);
             }
@@ -170,23 +190,23 @@
 
             //want to initially sort by lowest # losses first
             if (lTimes % 2 == 1) {
-                teams = teams.sort((teamA, teamB) => teamB.L - teamA.L);
+                teams = teams.sort((teamA, teamB) => (((teamB.games.length / 2) - teamB.Wins) - (teamA.games.length / 2) - teamA.Wins));
                 lTimes++;
 
                 changeArrow(arrowLocation, true);
             } else {
-                teams = teams.sort((teamA, teamB) => teamA.L - teamB.L);
+                teams = teams.sort((teamA, teamB) => ((teamA.games.length / 2) - teamA.Wins) - ((teamB.games.length / 2) - teamB.Wins));
                 lTimes++;
                 changeArrow(arrowLocation, false);
             }
         }
 
-        createTable(teams);
+        //recreates the table
+        createTable(data);
     }
 
+    //determines which way arrow should be pointed
     function changeArrow(location, up) {
-
-
         if (up) {
             icon.setAttribute("class", "fa-solid fa-arrow-up");
             location.appendChild(icon);

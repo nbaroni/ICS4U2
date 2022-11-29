@@ -50,7 +50,6 @@
                 <div class="level-right">
                     <p class="level-item"><a href="teams.html">Our Teams</a></p>
                     <p class="level-item"><a href="standings.html">Current Standings</a></p>
-                    <p class="level-item"><a>Live Scores</a></p>
                     <p class="level-item"><a class="button is-warning" href="login.html">Login</a></p>
                 </div>
             </nav>
@@ -61,7 +60,7 @@
         <div class="content is-large">
             <h1>Here are all of the Team Liquid sponsored curling teams! </h1>
 
-            <h3>Click on a team's name or photo to see their scores!</h2>
+            <h3>Click on a team's photo to see their scores!</h2>
         </div>
     </div>
 
@@ -75,74 +74,20 @@
 
 
 <script>
-
-    if (localStorage.getItem('teams') == null) {
-        const data = [
-            {
-                "Team": "Mouat",
-                "img": "img/mouat_team2022.jpeg",
-                "Fourth": "Bruce Mouat",
-                "Third": "Grant Hardie",
-                "Second": "Bobby Lammie",
-                "Lead": "Hammy McMillan Jr.",
-                "games": [],
-            },
-            {
-                "Team": "Koe",
-                "img": "img/koe_team2022.jpeg",
-                "Fourth": "Kevin Koe",
-                "Third": "Tyler Tardi",
-                "Second": "Brad Thiessen",
-                "Lead": "Karrick Martin",
-                "games": [],
-            },
-            {
-                "Team": "Bottcher",
-                "img": "img/bottcher_team2022.jpeg",
-                "Fourth": "Brendan Bottcher",
-                "Third": "Marc Kennedy",
-                "Second": "Brett Gallant",
-                "Lead": "Ben Hebert",
-                "games": [],
-            },
-            {
-                "Team": "Dunstone",
-                "img": "img/dunstone_team2022.jpeg",
-                "Fourth": "Matt Dunstone",
-                "Third": "B.J. Neufeld",
-                "Second": "Colton Lott",
-                "Lead": "Ryan Harnden",
-                "games": [],
-            },
-            {
-                "Team": "Whyte",
-                "img": "img/whyte_team2022.jpeg",
-                "Fourth": "Ross Whyte",
-                "Third": "Robin Brydone",
-                "Second": "Duncan McFadzean",
-                "Lead": "Euan Kyle",
-                "games": [],
-            },
-        ];
-
-
-
-        const gameString = JSON.stringify(data);
-        localStorage.setItem('teams', gameString);
-
-        for(i = 0; i < Object.keys(data).length; i++) {
-            localStorage.setItem(data[i].Team + "Wins", "0")
-        }
-    }
-    
     const data = JSON.parse(localStorage.getItem('teams'));
 
     const section = document.querySelector("body > div.container.teams");
 
     build(data);
 
+    //builds the main page. Format: team name, team image (with hyperlink), table at bottom with all player names and positions
     function build(data) {
+
+        //the array has multiple teams on it so we sort through that 
         data.forEach((team) => {
+            //team.Team is the team name
+
+            //the createDiv method produces an output so I can append that instantly
             section.appendChild(createDiv(false, 'container', team.Team))
 
 
@@ -186,6 +131,8 @@
         })
     }
 
+    //creates a div thats it :) 
+    //param1: if the div we are creating is actually a td. param 2 and 3: classes to be added to the div. param 4: the text content of the div
     function createDiv(isTable, className1, className2, divText) {
 
         //I know this is not the way to do it but i dont care it is easy copy paste moment
