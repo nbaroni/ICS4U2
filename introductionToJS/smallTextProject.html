@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text moment.</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/a367d7e179.js" crossorigin="anonymous"></script>
+    <style>
+        .remove {
+            display: none;
+        }
+    </style>
+</head>
+
+<body><br>
+    <div class="container is-fluid">
+        <div class="content is-large">
+            <h1>Send Text:</h1>
+            <p>Enter phone number and message.</p>
+
+            <h3>Phone number:</h3>
+            <input id="username" class="input is-info" type="text" placeholder="Phone number">
+
+            <h3>Message:</h3>
+            <input id="password" class="input is-info" type="text" placeholder="Message">
+
+
+        </div>
+        <p><span class="button is-primary" onclick="sendText();">Submit</span></p>
+    </div>
+    <br>
+    <div class="container is-fluid">
+        <div id="success" class="notification is-primary is-light remove">Message sent!</div>
+        <div id="invalid" class="notification is-danger is-light remove">Invalid input.</div>
+        <div id="invalidNumber" class="notification is-danger is-light remove">Invalid phone number.</div>
+    </div>
+
+</body>
+
+<script>
+    async function sendText() {
+        let string = prepString();
+        if (verify(string)) {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Basic QUMzNDNiZThkZjRjMTE0YzEyMDU5ZjQ3NzQ4ZTVmZWM2OToyZTE0ZjdkY2RkYWFhOTQ3NGFhYjEyZjA0Y2VlNTU1Yw==");
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("To", string);
+            urlencoded.append("From", "+13609970667");
+            urlencoded.append("Body", document.querySelector("#password").value);
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
+
+            let invalid = false;
+
+            fetch("https://api.twilio.com/2010-04-01/Accounts/AC343be8df4c114c12059f47748e5fec69/Messages.json", requestOptions)
+                .then(response => response.text())
+                .then((result) => {
+                    console.log(result)
+
+                    if (result.indexOf("not a valid phone number") == -1) { }
+                    else {
+                        invalid = true;
+                    }
+                })
+                .catch((error) => {
+                    console.log('error', error)
+                    invalid = true;
+                }).then(() => {
+                    if (!invalid) {
+                        document.querySelector("#success").classList.remove("remove")
+                        setTimeout(() => {
+                            document.querySelector("#success").classList.add("remove")
+                        }, 2500)
+                    } else {
+                        document.querySelector("#invalidNumber").classList.remove("remove")
+                        setTimeout(() => {
+                            document.querySelector("#invalidNumber").classList.add("remove")
+                        }, 2500)
+                    }
+
+                })
+        } else {
+            document.querySelector("#invalid").classList.remove("remove")
+            setTimeout(() => {
+                document.querySelector("#invalid").classList.add("remove")
+            }, 2500)
+        }
+
+
+    }
+    function verify(string) {
+        if (string == '' || document.querySelector("#password").value == '') {
+            return false;
+        } else if (string.length == 12) {
+            if (!containsSpecialChars(string) && !containsAnyLetters(string)) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function containsSpecialChars(str) {
+        const specialChars = /[`!@#$%^&*()_\-=\[\]{};':"\\|,.<>\/?~\ ]/;
+        return specialChars.test(str);
+    }
+
+    function containsAnyLetters(str) {
+        return /[a-zA-Z]/.test(str);
+    }
+
+    //adds +1 to the start of phone number if needed
+    function prepString() {
+        let string = document.querySelector("#username").value
+
+        if (string.indexOf("+") === 0) {
+            if (string.length === 11) {
+                return string.slice(0, 1) + "1" + string.slice(1)
+            } else {
+                return string;
+            }
+        } else if (string.length === 10) {
+            return "+1" + string;
+        } else if (string.length === 11 && string.indexOf("1") === 0) {
+            return "+" + string;
+        } else {
+            return string;
+        }
+    }
+
+</script>
+
+</html>
