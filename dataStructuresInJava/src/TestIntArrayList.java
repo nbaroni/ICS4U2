@@ -1,11 +1,5 @@
-public class testArrayLLStack {
+public class TestIntArrayList {
     public static void main(String[] args) {
-        System.out.println("Test testArrayStack passed: (T/F) " + testArrayStack()); 
-
-        System.out.println("Array Linked List stack: " + testLLStack());
-    }
-
-    private static String testLLStack() {
         int testPassed = 0;
         int testFailed = 0;
         if (!testAddNodes()) {
@@ -29,11 +23,11 @@ public class testArrayLLStack {
            testPassed++;
         }
   
-        return ("Tests Passed: " + testPassed + ". Tests Failed: " + testFailed);
+        System.out.println("Tests Passed: " + testPassed + ". Tests Failed: " + testFailed);
      }
   
-     private static IntLinkedList prepareLinkedList() {
-        IntLinkedList list = new IntLinkedList();
+     private static IntArrayList getList() {
+        IntArrayList list = new IntArrayList();
         list.add(1);
         list.add(2);
         list.add(3);
@@ -44,7 +38,7 @@ public class testArrayLLStack {
      }
   
      private static boolean testGetNodes() {
-        IntLinkedList list = prepareLinkedList();
+        IntArrayList list = getList();
   
         Integer i = list.get(0);
         if (i != 1)
@@ -77,12 +71,12 @@ public class testArrayLLStack {
      }
   
      private static boolean testRemoveNodes() {
-        IntLinkedList list = new IntLinkedList();
+        IntArrayList list = new IntArrayList();
         Integer temp = list.remove(6);
         if (temp != null)
            return false;
   
-        list = prepareLinkedList();
+        list = getList();
         if (list.size() != 5 || list.get(0) != 1 || list.get(4) != 5)
            return false;
   
@@ -102,7 +96,7 @@ public class testArrayLLStack {
         if (temp != null || list.size() != 2)
            return false;
   
-        list = prepareLinkedList();
+        list = getList();
   
         temp = list.removeFront();
         if (temp != 1 || list.size() != 4)
@@ -112,7 +106,7 @@ public class testArrayLLStack {
      }
   
      private static boolean testAddNodes() {
-        IntLinkedList list = prepareLinkedList();
+        IntArrayList list = getList();
   
         list.add(6);
         if (list.get(5) != 6 || list.size() != 6)
@@ -137,40 +131,4 @@ public class testArrayLLStack {
   
         return true;
      }
-    
-
-    private static String testArrayStack() {
-        IntArrayStack stack = new IntArrayStack();
-
-        stack.push(2);
-        stack.push(3);
-        if (stack.peek() != 3 ) return "false test 1";   
-
-        stack.pop();
-        if (stack.peek() != 2) return "false test 2"; 
-
-        if (stack.isEmpty()) return "false test 3";
-        stack.pop();
-        
-        if (stack.isEmpty() == false) return "false test 4";
-
-        
-        if (stack.search(1) != -1) return "false test 5";
-
-        stack.push(2);
-        stack.push(3);
-        stack.push(2);
-        stack.push(5);
-        stack.push(2);
-        stack.push(3);
-        stack.push(2);
-        stack.push(3);
-
-        
-        if (stack.search(5) != 4) return "false test 6";
-
-        return "true; test passed";
-
-
-    }
 }
