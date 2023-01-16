@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="movies"></div>
+    
+</body>
+
+<script>
+    const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '7f9e65c60bmshcc51303f52c6e02p163e4bjsn52432e67155c',
+		'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+	}
+};
+
+fetch('https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr', options)
+	.then(response => response.json())
+	.then(data => {
+    
+        const list = data.d;
+
+        list.map((item) => {
+            const name = item.l;
+            const poster = item.i.imageUrl;
+            const movie = `<li><img src="${poster}" ><h2>${name}</h2></li>`;
+            document.querySelector('.movies').innerHTML += movie;
+        });
+
+
+    })
+	.catch(err => console.error(err));
+</script>
+</html>
