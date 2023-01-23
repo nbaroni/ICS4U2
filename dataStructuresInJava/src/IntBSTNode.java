@@ -13,7 +13,7 @@ public class IntBSTNode {
     public boolean hasRightChild() {
         return rightChild != null;
     }
-    
+
 
     public IntBSTNode(Integer value) {
         this.value = value;
