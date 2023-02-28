@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"
 import Home from "@/views/Home.vue"
-import About from "@/views/About.vue"
-import Brazil from '@/views/Brazil.vue'
-import Jamaica from '@/views/Jamaica.vue'
-import Hawaii from '@/views/Hawaii.vue'
-import Panama from '@/views/Panama.vue'
 
 const routes = [
   {
@@ -13,19 +8,24 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
-    name: "about",
-    component: About,
-  },
-  {path:'/brazil', name: 'brazil', component: Brazil},
-  {path:'/jamaica', name: 'jamaica', component: Jamaica},
-  {path:'/hawaii', name: 'hawaii', component: Hawaii},
-  {path:'/panama', name: 'panama', component: Panama},
+    path: '/destination/:id/:slug', 
+    name:'destination.show', 
+    component:()=>import('@/views/DestinationShow.vue'),
+    props: route => ({...route.params, id: parseInt(route.params.id)}),
+    children: [
+      {
+        path: ':experienceSlug',
+        name: 'experience.show',
+        component: () => import('@/views/ExperienceShow.vue'),
+        props: route => ({...route.params, id: parseInt(route.params.id)}),
+      }
+    ]
+    },
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
 
 export default router
