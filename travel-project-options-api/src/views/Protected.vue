@@ -1,7 +1,10 @@
 <template>
     <div>
         <h1>Greetings, {{ username }}</h1>
-        <button @click="logout">Logout</button>
+        <router-link :to="{name: 'home'}">
+            <button @click="logout">Logout</button>
+        </router-link>
+        
         <router-link :to="{name: 'invoices'}">
             <button>Invoices</button>
 
@@ -10,17 +13,18 @@
 </template>
 
 <script>
+import {useRouter, useRoute} from 'vue-router'
+import {ref} from 'vue'
+
 export default {
-    data() {
-        return {
-            username: window.user
+    setup () {
+        const username = ref(window.user)
+
+        const logout = () => {
+            window.user = null;
         }
-    },
-    methods: {
-        logout() {
-            window.user = null
-            this.$router.push({name: 'home'})
-        }
+
+        return {username, logout}
     }
 }
 
